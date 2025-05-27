@@ -34,4 +34,4 @@ You can view the live website here:
 
 1. Clone or download this repository:
    ```bash
-   git clone https://github.com/yourusername/facebook-clone.git
+   git clone https://aaryanbanskota.github.io/copy-website/index.html
