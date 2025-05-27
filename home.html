@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home - Social App</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f0f2f5 !important;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #1877f2;
+      user-select: none;
+    }
+
+    .nav-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: background-color 0.25s ease, color 0.25s ease, font-weight 0.25s ease;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .nav-links a:hover {
+      background-color: #1877f2;
+      color: white;
+      font-weight: 700;
+    }
+
+    .home-layout {
+      display: flex;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .sidebar-left, .sidebar-right {
+      width: 20%;
+      background: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .feed {
+      flex: 1;
+      background: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .stories-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .story {
+      flex: 0 0 auto;
+      padding: 10px;
+      background: #d9eaff;
+      border-radius: 10px;
+      cursor: pointer;
+      min-width: 100px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      font-weight: 600;
+      color: #1877f2;
+    }
+
+    .story img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #1877f2;
+    }
+
+    .post-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .post-box textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      resize: none;
+      font-family: inherit;
+      font-size: 14px;
+      border: 1px solid #ccc;
+    }
+
+    /* Added input for image URL */
+    #post-image-url {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      margin-top: -6px;
+      margin-bottom: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .post-box button {
+      align-self: flex-end;
+      padding: 8px 16px;
+      background: #1877f2;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-weight: 600;
+    }
+
+    .post-box button:hover {
+      background: #165fca;
+    }
+
+    .post {
+      background: #e8f0fe;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: #050505;
+    }
+
+    .post img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    /* Modal Styles */
+    #story-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+
+    #story-modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    #story-modal-content img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    #story-modal-content h2 {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    #story-modal-close {
+      position: absolute;
+      top: 8px; right: 12px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* Dark mode styles */
+    body.dark-theme {
+      background-color: #18191a !important;
+      color: #e4e6eb;
+    }
+    body.dark-theme .top-nav {
+      background-color: #242526;
+      box-shadow: none;
+    }
+    body.dark-theme .nav-links a {
+      color: #e4e6eb;
+    }
+    body.dark-theme .nav-links a:hover {
+      background-color: #2d88ff;
+      color: white;
+      font-weight: 700;
+    }
+    body.dark-theme .sidebar-left,
+    body.dark-theme .sidebar-right,
+    body.dark-theme .feed,
+    body.dark-theme .post {
+      background-color: #242526;
+      color: #e4e6eb;
+      box-shadow: none;
+    }
+    body.dark-theme .story {
+      background-color: #3a3b3c;
+      color: #e4e6eb;
+    }
+    body.dark-theme .story img {
+      border-color: #2d88ff;
+    }
+    body.dark-theme .post-box textarea,
+    body.dark-theme #post-image-url {
+      background-color: #3a3b3c;
+      border: 1px solid #555;
+      color: #e4e6eb;
+    }
+    body.dark-theme .post-box button {
+      background: #2d88ff;
+    }
+    body.dark-theme .post-box button:hover {
+      background: #1b6bd8;
+    }
+  </style>
+</head>
+<body class="light-theme">
+  <header class="top-nav">
+    <div class="logo" onclick="location.reload()">🌐 SocialBook</div>
+    <nav class="nav-links">
+      <a href="profile.html" class="nav-item">👤 Profile</a>
+      <a href="chat.html" class="nav-item">💬 Chat</a>
+      <a href="setting.html" class="nav-item">⚙️ Settings</a>
+    </nav>
+    <div class="theme-toggle">
+      <button id="theme-btn">🌙</button>
+    </div>
+  </header>
+
+  <main class="home-layout">
+    <aside class="sidebar-left">
+      <ul>
+        <li>🏠 Home</li>
+        <li>🎥 Watch</li>
+        <li>👥 Friends</li>
+        <li>🛒 Marketplace</li>
+        <li>📅 Events</li>
+      </ul>
+    </aside>
+
+    <section class="feed">
+      <div class="stories-section" id="story-bar">
+        <div class="story" id="add-story">+ Add Story</div>
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John" />
+          John
+        </div>
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Emma" />
+          Emma
+        </div>
+        <div class="story">
+          <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Alex" />
+          Alex
+        </div>
+      </div>
+
+      <div class="post-box">
+        <textarea id="post-content" placeholder="What's on your mind?"></textarea>
+        <input type="text" id="post-image-url" placeholder="Image URL (optional)" />
+        <button id="post-btn">Post</button>
+      </div>
+
+      <div id="post-feed">
+        <div class="post">
+          <h3>John Doe</h3>
+          <p>Just had a great day at the beach! 🏖️</p>
+        </div>
+        <div class="post">
+          <h3>Emma Smith</h3>
+          <p>Loving the new SocialBook features! 😍</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="sidebar-right">
+      <h4>Contacts</h4>
+      <ul>
+        <li>💚 Olivia</li>
+        <li>💙 Noah</li>
+        <li>❤️ Liam</li>
+      </ul>
+    </aside>
+  </main>
+
+  <!-- Modal for Story display -->
+  <div id="story-modal">
+    <div id="story-modal-content">
+      <span id="story-modal-close">&times;</span>
+      <img id="story-modal-image" src="" alt="Story Image" />
+      <h2 id="story-modal-name"></h2>
+    </div>
+  </div>
+
+  <script>
+    const postBtn = document.getElementById('post-btn');
+    const postContent = document.getElementById('post-content');
+    const postFeed = document.getElementById('post-feed');
+    const addStoryBtn = document.getElementById('add-story');
+    const storyBar = document.getElementById('story-bar');
+
+    const storyModal = document.getElementById('story-modal');
+    const storyModalClose = document.getElementById('story-modal-close');
+    const storyModalImage = document.getElementById('story-modal-image');
+    const storyModalName = document.getElementById('story-modal-name');
+
+    const themeBtn = document.getElementById('theme-btn');
+
+    // Dark mode toggle
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+      if(document.body.classList.contains('dark-theme')){
+        themeBtn.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeBtn.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Load theme from localStorage on page load
+    if(localStorage.getItem('theme') === 'dark'){
+      document.body.classList.add('dark-theme');
+      themeBtn.textContent = '☀️';
+    }
+
+    // Posting new post
+    postBtn.addEventListener('click', () => {
+      const content = postContent.value.trim();
+      const imgUrl = document.getElementById('post-image-url').value.trim();
+      if(content === '') return alert('Please write something to post.');
+
+      const newPost = document.createElement('div');
+      newPost.classList.add('post');
+      newPost.innerHTML = `
+        <h3>You</h3>
+        <p>${content}</p>
+        ${imgUrl ? `<img src="${imgUrl}" alt="User post image">` : ''}
+      `;
+      postFeed.prepend(newPost);
+
+      postContent.value = '';
+      document.getElementById('post-image-url').value = '';
+    });
+
+    // Open modal on story click (except Add Story)
+    storyBar.addEventListener('click', (e) => {
+      const story = e.target.closest('.story');
+      if(!story || story.id === 'add-story') return;
+
+      const img = story.querySelector('img');
+      const name = story.textContent.trim();
+
+      storyModalImage.src = img.src;
+      storyModalName.textContent = name;
+      storyModal.style.display = 'flex';
+    });
+
+    storyModalClose.addEventListener('click', () => {
+      storyModal.style.display = 'none';
+    });
+
+    // Close modal on outside click
+    storyModal.addEventListener('click', e => {
+      if(e.target === storyModal){
+        storyModal.style.display = 'none';
+      }
+    });
+
+    // Add new story (prompt user for image and name)
+    addStoryBtn.addEventListener('click', () => {
+      const imgUrl = prompt('Enter story image URL:');
+      if(!imgUrl) return;
+
+      const name = prompt('Enter story name:');
+      if(!name) return;
+
+      const newStory = document.createElement('div');
+      newStory.classList.add('story');
+      newStory.innerHTML = `<img src="${imgUrl}" alt="${name}">${name}`;
+      storyBar.appendChild(newStory);
+    });
+  </script>
+</body>
+</html>

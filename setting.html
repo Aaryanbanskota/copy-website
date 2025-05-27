@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - SocialBook</title>
+  <style>
+    :root {
+      --bg: #f0f2f5;
+      --card-bg: #fff;
+      --text-color: #050505;
+      --border: #ccc;
+      --input-bg: #f9f9f9;
+      --btn: #1877f2;
+      --btn-hover: #145dbf;
+    }
+
+    body.dark-theme {
+      --bg: #18191a;
+      --card-bg: #242526;
+      --text-color: #e4e6eb;
+      --border: #3a3b3c;
+      --input-bg: #3a3b3c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 16px 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+    }
+
+    .settings-header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+
+    .back-button {
+      text-decoration: none;
+      background: var(--btn);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .back-button:hover {
+      background: var(--btn-hover);
+    }
+
+    .settings-container {
+      padding: 20px;
+      display: grid;
+      gap: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .settings-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: background 0.3s;
+    }
+
+    .settings-card h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+    }
+
+    .settings-card label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .settings-card input,
+    .settings-card select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--input-bg);
+      color: var(--text-color);
+      margin-top: 5px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .settings-card input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    .settings-card button,
+    .logout-btn {
+      padding: 10px 16px;
+      background: var(--btn);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+
+    .settings-card button:hover {
+      background: var(--btn-hover);
+    }
+
+    .logout-btn {
+      width: 100%;
+      background: #e53935;
+    }
+
+    .logout-btn:hover {
+      background: #c62828;
+    }
+
+    @media screen and (max-width: 600px) {
+      .settings-container {
+        padding: 15px;
+      }
+
+      .settings-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .back-button {
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="settings-header">
+    <h1>⚙️ Settings</h1>
+    <a href="home.html" class="back-button">← Back to Home</a>
+  </header>
+
+  <main class="settings-container">
+    <section class="settings-card">
+      <h2>👤 Account Settings</h2>
+      <label>
+        Name:
+        <input type="text" id="nameInput" placeholder="Your Name">
+      </label>
+      <label>
+        Email:
+        <input type="email" id="emailInput" placeholder="you@example.com">
+      </label>
+    </section>
+
+    <section class="settings-card">
+      <h2>🔒 Privacy</h2>
+      <label>
+        Profile Visibility:
+        <select id="privacySelect">
+          <option>Public</option>
+          <option>Friends Only</option>
+          <option>Private</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="settings-card">
+      <h2>🎨 Appearance</h2>
+      <button onclick="toggleTheme()">Toggle Dark/Light Theme</button>
+    </section>
+
+    <section class="settings-card">
+      <h2>🔔 Notifications</h2>
+      <label>
+        <input type="checkbox" id="emailNotif">
+        Email Notifications
+      </label>
+      <label>
+        <input type="checkbox" id="pushNotif">
+        Push Notifications
+      </label>
+    </section>
+
+    <section class="settings-card">
+      <h2>🌐 Language</h2>
+      <label>
+        Choose Language:
+        <select id="langSelect">
+          <option>English</option>
+          <option>Español</option>
+          <option>Français</option>
+          <option>नेपाली</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="settings-card">
+      <button class="logout-btn" onclick="logout()">🚪 Log Out</button>
+    </section>
+  </main>
+
+  <script>
+    // Save settings to localStorage
+    function saveSettings() {
+      const settings = {
+        name: document.getElementById("nameInput").value,
+        email: document.getElementById("emailInput").value,
+        privacy: document.getElementById("privacySelect").value,
+        emailNotif: document.getElementById("emailNotif").checked,
+        pushNotif: document.getElementById("pushNotif").checked,
+        language: document.getElementById("langSelect").value,
+        theme: document.body.classList.contains("dark-theme") ? "dark" : "light"
+      };
+      localStorage.setItem("userSettings", JSON.stringify(settings));
+    }
+
+    // Load settings from localStorage
+    function loadSettings() {
+      const settings = JSON.parse(localStorage.getItem("userSettings"));
+      if (settings) {
+        document.getElementById("nameInput").value = settings.name || "";
+        document.getElementById("emailInput").value = settings.email || "";
+        document.getElementById("privacySelect").value = settings.privacy || "Public";
+        document.getElementById("emailNotif").checked = settings.emailNotif || false;
+        document.getElementById("pushNotif").checked = settings.pushNotif || false;
+        document.getElementById("langSelect").value = settings.language || "English";
+        document.body.classList.add(settings.theme === "dark" ? "dark-theme" : "light-theme");
+      } else {
+        document.body.classList.add("light-theme");
+      }
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark-theme");
+      document.body.classList.toggle("light-theme");
+      saveSettings();
+    }
+
+    function logout() {
+      alert("You have been logged out.");
+      localStorage.removeItem("userSettings");
+      window.location.href = "index.html";
+    }
+
+    // Save on input changes
+    document.addEventListener("DOMContentLoaded", () => {
+      loadSettings();
+      document.querySelectorAll("input, select").forEach(el => {
+        el.addEventListener("change", saveSettings);
+      });
+    });
+  </script>
+</body>
+</html>

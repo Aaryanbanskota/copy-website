@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Facebook Profile Page Clone</title>
+<style>
+  
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body
+       <nav class="top-navbar">
+  <ul class="nav-links">
+    <li><a href="home.html" class="nav-link">Home</a></li>
+    <li><a href="profile.html" class="nav-link">Profile</a></li>
+    <li><a href="chat.html" class="nav-link">Chat</a></li>
+  </ul>
+</nav>
+
+   {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #f0f2f5;
+    color: #050505;
+  }
+  a {
+    text-decoration: none;
+    color: #1877f2;
+  }
+  /* Container */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  /* Cover Photo */
+  .cover-photo {
+    width: 100%;
+    height: 320px;
+    background: url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=900&q=80")
+      center/cover no-repeat;
+    position: relative;
+  }
+  /* Profile Picture */
+  .profile-pic {
+    position: absolute;
+    bottom: -70px;
+    left: 40px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 5px solid white;
+    background: url("https://randomuser.me/api/portraits/men/75.jpg")
+      center/cover no-repeat;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+  }
+  /* Header Info */
+  .header-info {
+    padding: 80px 40px 20px 200px;
+    position: relative;
+  }
+  .header-info h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .header-info .intro {
+    margin: 8px 0 0 0;
+    color: #65676b;
+    font-size: 15px;
+  }
+  /* Navigation Tabs */
+  .nav-tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    background: white;
+    user-select: none;
+  }
+  .nav-tab {
+    padding: 14px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #65676b;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+  }
+  .nav-tab.active,
+  .nav-tab:hover {
+    border-bottom: 3px solid #1877f2;
+    color: #1877f2;
+  }
+  /* Sections */
+  section {
+    padding: 20px 40px;
+  }
+  /* About Section */
+  .about-item {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #65676b;
+  }
+  .about-item svg {
+    fill: #65676b;
+    width: 20px;
+    height: 20px;
+  }
+  /* Friends Grid */
+  .friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(100px,1fr));
+    gap: 14px;
+  }
+  .friend-card {
+    text-align: center;
+    cursor: pointer;
+  }
+  .friend-card img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .friend-name {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #050505;
+    font-weight: 600;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  /* Photos Grid */
+  .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(130px,1fr));
+    gap: 10px;
+  }
+  .photos-grid img {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    object-fit: cover;
+    height: 100px;
+  }
+  /* Posts Feed */
+  .posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .post {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
+    padding: 12px 16px;
+  }
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .post-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .post-user {
+    font-weight: 700;
+    color: #050505;
+  }
+  .post-time {
+    color: #65676b;
+    font-size: 12px;
+    margin-left: 8px;
+  }
+  .post-content {
+    margin: 12px 0;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  .post-image {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  .post-actions {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
+    margin-top: 8px;
+  }
+  .post-actions button {
+    background: none;
+    border: none;
+    color: #65676b;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+  }
+  .post-actions button:hover {
+    background-color: #f0f2f5;
+    color: #1877f2;
+  }
+  /* Comments */
+  .comments-section {
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  .comment {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .comment img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .comment-text {
+    background: #f0f2f5;
+    border-radius: 18px;
+    padding: 8px 12px;
+    font-size: 14px;
+    max-width: 85%;
+  }
+  /* Sidebar */
+  .sidebar {
+    background: white;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 40px;
+    max-width: 250px;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+  }
+  .sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #050505;
+  }
+  .sidebar-item {
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #65676b;
+  }
+  /* Layout */
+  .main-content {
+    display: flex;
+    gap: 30px;
+    padding-bottom: 40px;
+  }
+  .left-content {
+    flex: 2;
+  }
+  .right-content {
+    flex: 1;
+  }
+  /* Dark Mode */
+  body.dark-mode {
+    background: #18191a;
+    color: #e4e6eb;
+  }
+  body.dark-mode .container {
+    background: #242526;
+    box-shadow: none;
+  }
+  body.dark-mode .nav-tabs {
+    background: #242526;
+    border-bottom-color: #3a3b3c;
+  }
+  body.dark-mode .nav-tab {
+    color: #b0b3b8;
+  }
+  body.dark-mode .nav-tab.active,
+  body.dark-mode .nav-tab:hover {
+    color: #2d88ff;
+    border-bottom-color: #2d88ff;
+  }
+  body.dark-mode .about-item,
+  body.dark-mode .sidebar-item {
+    color: #b0b3b8;
+  }
+  body.dark-mode .post {
+    background: #3a3b3c;
+  }
+  body.dark-mode .post-actions button {
+    color: #b0b3b8;
+  }
+  body.dark-mode .post-actions button:hover {
+    color: #2d88ff;
+    background-color: #4e4f50;
+  }
+  body.dark-mode .comments-section {
+    border-top-color: #3a3b3c;
+  }
+  body.dark-mode .comment-text {
+    background: #4e4f50;
+    color: #e4e6eb;
+  }
+  /* Modal */
+  .modal-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal {
+    background: white;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    padding: 20px;
+    position: relative;
+  }
+  .modal.dark-mode {
+    background: #242526;
+    color: #e4e6eb;
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 22px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #65676b;
+    user-select: none;
+  }
+  .modal-close:hover {
+    color: #1877f2;
+  }
+  /* Responsive */
+  @media (max-width: 850px) {
+    .container {
+      margin: 0 10px;
+    }
+    .header-info {
+      padding-left: 40px;
+    }
+    .profile-pic {
+      left: 20px;
+      width: 110px;
+      height: 110px;
+      bottom: -55px;
+      border-width: 4px;
+    }
+    .header-info h1 {
+      font-size: 22px;
+    }
+    .main-content {
+      flex-direction: column;
+      padding: 0 20px 40px;
+    }
+    .right-content {
+      margin-top: 30px;
+      max-width: 100%;
+      position: static;
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Cover and Profile Pic -->
+  <div class="cover-photo">
+    <div class="profile-pic" title="Profile Picture"></div>
+  </div>
+  <!-- Header Info -->
+  <div class="header-info">
+    <h1 id="userName">John Doe</h1>
+    <div class="intro" id="userIntro">Software Engineer • New York, USA</div>
+  </div>
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs" role="tablist">
+    <div class="nav-tab active" role="tab" tabindex="0" aria-selected="true" data-tab="timeline">Timeline</div>
+    <div class="nav-tab" role="tab" tabindex="0" aria-selected="false" data-tab="about">About</div>
+    <div class="nav-tab" role="tab" tabindex="0" aria-selected="false" data-tab="friends">Friends</div>
+    <div class="nav-tab" role="tab" tabindex="0" aria-selected="false" data-tab="photos">Photos</div>
+  </div>
+
+  <div class="main-content">
+    <div class="left-content">
+      <section id="timeline" class="tab-content" role="tabpanel">
+        <div class="posts-feed" id="postsFeed">
+          <!-- Posts inserted by JS -->
+        </div>
+      </section>
+
+      <section id="about" class="tab-content" style="display:none;" role="tabpanel" aria-hidden="true">
+        <div class="about-item"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4s-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>Works at <strong>OpenAI</strong></div>
+        <div class="about-item"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 3.87 7 13 7 13s7-9.13 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.02-2.5 5.71-5 8.54C9.5 14.7 7 11 7 9z"></path></svg>Lives in <strong>New York, USA</strong></div>
+        <div class="about-item"><svg viewBox="0 0 24 24"><path d="M17.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 18 9.5 6.5 6.5 0 1 0 9.5 18a6.471 6.471 0 0 0 4.23-1.57l.27.28v.79l5 4.99L22.49 19l-4.99-5zM10 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"></path></svg>Studied at <strong>MIT</strong></div>
+        <button id="editAboutBtn" style="margin-top:10px; padding:8px 14px; border:none; background:#1877f2; color:white; border-radius:6px; cursor:pointer;">Edit About Info</button>
+      </section>
+
+      <section id="friends" class="tab-content" style="display:none;" role="tabpanel" aria-hidden="true">
+        <div class="friends-grid" id="friendsGrid">
+          <!-- Friends inserted by JS -->
+        </div>
+      </section>
+
+      <section id="photos" class="tab-content" style="display:none;" role="tabpanel" aria-hidden="true">
+        <div class="photos-grid" id="photosGrid">
+          <!-- Photos inserted by JS -->
+        </div>
+      </section>
+    </div>
+
+    <aside class="right-content">
+      <div class="sidebar" aria-label="Profile Sidebar">
+        <h3>Intro</h3>
+        <p>Hi! I'm John Doe, a software engineer passionate about AI and tech.</p>
+        <h3>Shortcuts</h3>
+        <div class="sidebar-item"><a href="#">Settings</a></div>
+        <div class="sidebar-item"><a href="#">Activity Log</a></div>
+        <div class="sidebar-item"><a href="#">Friends</a></div>
+        <h3>Dark Mode</h3>
+        <button id="toggleDarkMode" style="padding:8px 14px; border:none; background:#1877f2; color:white; border-radius:6px; cursor:pointer;">Toggle Dark Mode</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- Modal for Photos -->
+<div class="modal-bg" id="photoModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal" role="document" tabindex="0">
+    <span class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</span>
+    <img src="" alt="Photo" style="width:100%; border-radius:8px;" id="modalImage" />
+  </div>
+</div>
+
+<!-- Modal for Edit About -->
+<div class="modal-bg" id="editAboutModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal" role="document" tabindex="0" style="max-width:400px;">
+    <span class="modal-close" id="editAboutCloseBtn" aria-label="Close modal">&times;</span>
+    <h2>Edit About Info</h2>
+    <form id="aboutForm" style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+      <label>
+        Works at:
+        <input type="text" id="worksAtInput" placeholder="Company" />
+      </label>
+      <label>
+        Lives in:
+        <input type="text" id="livesInInput" placeholder="City, Country" />
+      </label>
+      <label>
+        Studied at:
+        <input type="text" id="studiedAtInput" placeholder="School/University" />
+      </label>
+      <button type="submit" style="background:#1877f2; border:none; padding:8px 14px; color:white; border-radius:6px; cursor:pointer;">Save</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Tabs switching
+  const tabs = document.querySelectorAll(".nav-tab");
+  const tabContents = document.querySelectorAll(".tab-content");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      // Remove active from all tabs
+      tabs.forEach(t => {
+        t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
+      });
+      // Hide all content
+      tabContents.forEach(c => {
+        c.style.display = "none";
+        c.setAttribute("aria-hidden", "true");
+      });
+      // Activate clicked tab and show content
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+      const id = tab.getAttribute("data-tab");
+      const content = document.getElementById(id);
+      content.style.display = "block";
+      content.setAttribute("aria-hidden", "false");
+    });
+    tab.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        tab.click();
+      }
+    });
+  });
+
+  // Sample friends data
+  const friendsData = [
+    { name: "Alice Johnson", img: "https://randomuser.me/api/portraits/women/68.jpg" },
+    { name: "Bob Smith", img: "https://randomuser.me/api/portraits/men/34.jpg" },
+    { name: "Catherine Lee", img: "https://randomuser.me/api/portraits/women/44.jpg" },
+    { name: "Daniel Kim", img: "https://randomuser.me/api/portraits/men/12.jpg" },
+    { name: "Eva Green", img: "https://randomuser.me/api/portraits/women/56.jpg" },
+    { name: "Frank Wright", img: "https://randomuser.me/api/portraits/men/79.jpg" },
+  ];
+
+  // Load friends into grid
+  const friendsGrid = document.getElementById("friendsGrid");
+  friendsData.forEach(f => {
+    const friendDiv = document.createElement("div");
+    friendDiv.className = "friend-card";
+    friendDiv.innerHTML = `<img src="${f.img}" alt="${f.name}" /><div class="friend-name">${f.name}</div>`;
+    friendsGrid.appendChild(friendDiv);
+  });
+
+  // Sample photos data
+  const photosData = [
+    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1468071174046-657d9d351a40?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80",
+  ];
+
+  // Load photos grid
+  const photosGrid = document.getElementById("photosGrid");
+  photosData.forEach(url => {
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = "User photo";
+    img.tabIndex = 0;
+    photosGrid.appendChild(img);
+  });
+
+  // Modal photo viewer
+  const photoModal = document.getElementById("photoModal");
+  const modalImage = document.getElementById("modalImage");
+  const modalCloseBtn = document.getElementById("modalCloseBtn");
+
+  photosGrid.addEventListener("click", e => {
+    if (e.target.tagName === "IMG") {
+      modalImage.src = e.target.src;
+      photoModal.style.display = "flex";
+      photoModal.setAttribute("aria-hidden", "false");
+      modalCloseBtn.focus();
+    }
+  });
+  photosGrid.addEventListener("keydown", e => {
+    if (e.target.tagName === "IMG" && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      modalImage.src = e.target.src;
+      photoModal.style.display = "flex";
+      photoModal.setAttribute("aria-hidden", "false");
+      modalCloseBtn.focus();
+    }
+  });
+
+  modalCloseBtn.addEventListener("click", () => {
+    photoModal.style.display = "none";
+    photoModal.setAttribute("aria-hidden", "true");
+  });
+
+  photoModal.addEventListener("click", e => {
+    if (e.target === photoModal) {
+      photoModal.style.display = "none";
+      photoModal.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && photoModal.style.display === "flex") {
+      photoModal.style.display = "none";
+      photoModal.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  // Posts data sample
+  const postsData = [
+    {
+      id: 1,
+      userName: "John Doe",
+      userImg: "https://randomuser.me/api/portraits/men/75.jpg",
+      time: "2 hrs ago",
+      content: "Had a great day working on my new AI project!",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=700&q=80",
+      likes: 23,
+      comments: [
+        { userName: "Alice Johnson", userImg: "https://randomuser.me/api/portraits/women/68.jpg", text: "Sounds exciting!" },
+        { userName: "Bob Smith", userImg: "https://randomuser.me/api/portraits/men/34.jpg", text: "Can't wait to see it." }
+      ]
+    },
+    {
+      id: 2,
+      userName: "John Doe",
+      userImg: "https://randomuser.me/api/portraits/men/75.jpg",
+      time: "1 day ago",
+      content: "Loving the new features in JavaScript ES2025!",
+      image: null,
+      likes: 15,
+      comments: []
+    }
+  ];
+
+  // Render posts
+  const postsFeed = document.getElementById("postsFeed");
+  function renderPosts() {
+    postsFeed.innerHTML = "";
+    postsData.forEach(post => {
+      const postEl = document.createElement("article");
+      postEl.className = "post";
+      postEl.innerHTML = `
+        <div class="post-header">
+          <img src="${post.userImg}" alt="${post.userName}" />
+          <div>
+            <div class="post-user">${post.userName}</div>
+            <div class="post-time">${post.time}</div>
+          </div>
+        </div>
+        <div class="post-content">${post.content}</div>
+        ${post.image ? `<img src="${post.image}" alt="Post image" class="post-image" />` : ""}
+        <div class="post-actions">
+          <button class="like-btn" data-id="${post.id}">👍 Like (${post.likes})</button>
+          <button class="comment-toggle-btn" data-id="${post.id}">💬 Comment (${post.comments.length})</button>
+          <button class="share-btn" data-id="${post.id}">↗️ Share</button>
+        </div>
+        <div class="comments-section" id="comments-${post.id}" style="display:none;">
+          ${post.comments.map(c => `
+            <div class="comment">
+              <img src="${c.userImg}" alt="${c.userName}" />
+              <div class="comment-text"><strong>${c.userName}:</strong> ${c.text}</div>
+            </div>
+          `).join("")}
+          <form class="add-comment-form" data-id="${post.id}">
+            <input type="text" placeholder="Write a comment..." aria-label="Write a comment" required style="flex-grow:1; padding:6px 10px; border-radius:18px; border:1px solid #ddd;"/>
+            <button type="submit" style="padding:6px 12px; border:none; background:#1877f2; color:white; border-radius:18px; margin-left:8px; cursor:pointer;">Post</button>
+          </form>
+        </div>
+      `;
+      postsFeed.appendChild(postEl);
+    });
+  }
+  renderPosts();
+
+  // Like button toggle
+  postsFeed.addEventListener("click", e => {
+    if (e.target.classList.contains("like-btn")) {
+      const postId = Number(e.target.getAttribute("data-id"));
+      const post = postsData.find(p => p.id === postId);
+      if (post) {
+        post.likes++;
+        renderPosts();
+      }
+    }
+  });
+
+  // Comment toggle
+  postsFeed.addEventListener("click", e => {
+    if (e.target.classList.contains("comment-toggle-btn")) {
+      const postId = Number(e.target.getAttribute("data-id"));
+      const commentsSection = document.getElementById(`comments-${postId}`);
+      if (commentsSection) {
+        if (commentsSection.style.display === "none") {
+          commentsSection.style.display = "block";
+        } else {
+          commentsSection.style.display = "none";
+        }
+      }
+    }
+  });
+
+  // Add comment form submit
+  postsFeed.addEventListener("submit", e => {
+    if (e.target.classList.contains("add-comment-form")) {
+      e.preventDefault();
+      const postId = Number(e.target.getAttribute("data-id"));
+      const input = e.target.querySelector("input");
+      const post = postsData.find(p => p.id === postId);
+      if (post && input.value.trim()) {
+        post.comments.push({
+          userName: "John Doe",
+          userImg: "https://randomuser.me/api/portraits/men/75.jpg",
+          text: input.value.trim()
+        });
+        input.value = "";
+        renderPosts();
+      }
+    }
+  });
+
+  // Edit About Info modal
+  const editAboutBtn = document.getElementById("editAboutBtn");
+  const editAboutModal = document.getElementById("editAboutModal");
+  const editAboutCloseBtn = document.getElementById("editAboutCloseBtn");
+  const aboutForm = document.getElementById("aboutForm");
+  const worksAtInput = document.getElementById("worksAtInput");
+  const livesInInput = document.getElementById("livesInInput");
+  const studiedAtInput = document.getElementById("studiedAtInput");
+
+  editAboutBtn.addEventListener("click", () => {
+    // Load current about info into inputs
+    worksAtInput.value = document.querySelector("#about .about-item strong:nth-child(1)").textContent || "";
+    livesInInput.value = document.querySelector("#about .about-item strong:nth-child(2)").textContent || "";
+    studiedAtInput.value = document.querySelector("#about .about-item strong:nth-child(3)").textContent || "";
+
+    editAboutModal.style.display = "flex";
+    editAboutModal.setAttribute("aria-hidden", "false");
+    worksAtInput.focus();
+  });
+
+  editAboutCloseBtn.addEventListener("click", () => {
+    editAboutModal.style.display = "none";
+    editAboutModal.setAttribute("aria-hidden", "true");
+  });
+
+  aboutForm.addEventListener("submit", e => {
+    e.preventDefault();
+    // Update about info
+    const aboutItems = document.querySelectorAll("#about .about-item strong");
+    aboutItems[0].textContent = worksAtInput.value;
+    aboutItems[1].textContent = livesInInput.value;
+    aboutItems[2].textContent = studiedAtInput.value;
+
+    editAboutModal.style.display = "none";
+    editAboutModal.setAttribute("aria-hidden", "true");
+  });
+
+  // Dark mode toggle
+  const toggleDarkModeBtn = document.getElementById("toggleDarkMode");
+  toggleDarkModeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Social App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #5f2c82, #49a09d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(12px);
+      color: #fff;
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      font-size: 16px;
+    }
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      background: #00c9a7;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #00b199;
+    }
+    a {
+      display: block;
+      margin-top: 18px;
+      color: #f3f3f3;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .message {
+      margin-top: 16px;
+      min-height: 20px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Enter your Gmail" />
+    <input type="password" id="password" placeholder="Password" />
+    <input type="text" id="code" placeholder="Unique code (optional)" />
+    <button id="login-btn">Login</button>
+    <a href="register.html">Don't have an account? Register</a>
+    <div class="message" id="login-msg"></div>
+  </div>
+
+  <script>
+    document.getElementById("login-btn").addEventListener("click", () => {
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value.trim();
+      const code = document.getElementById("code").value.trim();
+      const msg = document.getElementById("login-msg");
+      const savedCode = localStorage.getItem("userCode");
+
+      if (code) {
+        if (code === savedCode) {
+          msg.style.color = "lightgreen";
+          msg.textContent = "Login with code successful! Redirecting...";
+          setTimeout(() => {
+            window.location.href = "home.html";
+          }, 1000);
+        } else {
+          msg.style.color = "orange";
+          msg.textContent = "Invalid code.";
+        }
+        return;
+      }
+
+      if (!email || !password) {
+        msg.style.color = "orange";
+        msg.textContent = "Enter email & password or code.";
+        return;
+      }
+
+      if (!email.endsWith("@gmail.com")) {
+        msg.style.color = "red";
+        msg.textContent = "Use a valid @gmail.com email.";
+        return;
+      }
+
+      msg.style.color = "lightgreen";
+      msg.textContent = "Login successful! Redirecting...";
+      setTimeout(() => {
+        window.location.href = "home.html";
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
