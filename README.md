@@ -26,7 +26,7 @@ This project replicates the look and feel of Facebook’s main interface, featur
 ## 🌐 Live Demo
 
 You can view the live website here:  
-[**Facebook Clone Live Demo**](https://yourusername.github.io/facebook-clone/)  
+[**Facebook Clone Live Demo**](https://aaryanbanskota.github.io/copy-website/index.html)  
 
 *(Replace the URL with your actual GitHub Pages or live host URL)*
 
